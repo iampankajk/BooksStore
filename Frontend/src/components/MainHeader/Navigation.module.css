@@ -11,13 +11,13 @@
   margin-left: 2rem;
 }
 
-.nav a {
+.nav p {
   text-decoration: none;
   color: white;
 }
 
-.nav a:hover,
-.nav a:active {
+.nav p:hover,
+.nav p:active {
   color: #f3cafb;
 }
 

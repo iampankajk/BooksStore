@@ -1,7 +1,9 @@
 .home {
   width: 90%;
   max-width: 40rem;
-  padding: 3rem;
-  margin: 2rem auto;
+  padding: 0.3rem;
+  margin: 0rem auto;
   text-align: center;
+  background: #0c151f;
+  color: white;
 }

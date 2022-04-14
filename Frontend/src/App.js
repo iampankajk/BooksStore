@@ -4,6 +4,7 @@ import Login from './components/Login/Login';
 import Home from './components/Home/Home';
 import MainHeader from './components/MainHeader/MainHeader';
 import AuthContext from './store/auth-context';
+import Search from './components/SearchPage/Search';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -39,6 +40,7 @@ function App() {
       <main>
         {!isLoggedIn && <Login onLogin={loginHandler} />}
         {isLoggedIn && <Home onLogout={logoutHandler} />}
+        {isLoggedIn && <Search/>}
       </main>
       </AuthContext.Provider>
 

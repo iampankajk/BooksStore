@@ -1,13 +1,15 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 
 
 import Card from '../UI/Card/Card'
 import classes from './Search.module.css'
 
-const Search = () => {
+const Search = (props) => {
     let timerId;
     const apikey = "AIzaSyDIhUMj9N8wb-1fBqKTxnTZ2X6s-cxhtqU"
-    const [bookdata, setBookData] = useState([]);
+    const [bookData, setBookData] = useState([]);
+    const [itemSelected, setItemSelected] = useState(false);
+    const [inputValue, setInputValue] = useState('');
 
     const searchBooks = async (query) => {
         try {
@@ -21,31 +23,38 @@ const Search = () => {
 
     }
     const main = async (value) => {
-        let {items} = await searchBooks(value);
+        let { items } = await searchBooks(value);
         console.log(items)
         setBookData(items)
     }
     const debounce = async (event) => {
-
+        setInputValue(event.target.value);
+        setItemSelected(true);
         clearTimeout(timerId)
         timerId = setTimeout(() => {
             main(event.target.value);
         }, 300)
     }
-
+    const itemSelectHandler = (item) => {
+        // console.log(item)
+        setInputValue('')
+        setItemSelected(false)
+        props.onSelect(item)
+    }
     return (
         <Card className={classes.card} >
             <form className={classes.search}>
-                <input type='text' placeholder='Search Books' onInput={debounce} ></input>
-                <div>
-                  <ul>
-                {bookdata.map(item=>{
-                    return(
-                        <li key={`${item.id}${Math.random()}`}><p>{item.volumeInfo.title}</p></li>
-                    )
-                })}
-               </ul>
-                </div>
+                <input type='text' placeholder='Search Books' onInput={debounce} value={inputValue} ></input>
+
+                <ul className={classes.list}>
+                    {
+                     itemSelected && bookData.map(item => {
+                            return (
+                                <li key={`${item.id}${Math.random()}`} onClick={() => { itemSelectHandler(item) }}><p>{item.volumeInfo.title}</p></li>
+                            )
+                        })}
+                </ul>
+           
                 <button className={classes.button}>Search</button>
             </form>
         </Card>

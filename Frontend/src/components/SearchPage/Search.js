@@ -55,7 +55,7 @@ const Search = (props) => {
                         })}
                 </ul>
            
-                <button className={classes.button}>Search</button>
+
             </form>
         </Card>
 
